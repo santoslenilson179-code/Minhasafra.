@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  --color-floresta: #14251C;
+  --color-mata: #20382A;
+  --color-oliva: #354A37;
+  --color-barro: #C86F42;
+  --color-terracota: #C86F42;
+  --color-dourado: #D9AD5B;
+  --color-palha: #D9AD5B;
+  --color-areia: #D8CEB8;
+  --color-creme: #F5F0E6;
+  --color-sucesso: #22C55E;
+  --color-perigo: #DC4C4C;
+}
+
+@layer base {
+  body {
+    background-color: #14251C;
+    color: #F5F0E6;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 700;
+  }
+}
+
+/* Hide scrollbar for clean mobile experience while allowing scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+

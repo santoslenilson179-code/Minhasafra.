@@ -1,0 +1,6 @@
+{
+  "name": "Minha Safra",
+  "description": "Aplicativo simples para pequenos e médios produtores rurais registrarem gastos, produção e vendas para apurar o resultado da safra.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

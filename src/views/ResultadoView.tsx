@@ -51,7 +51,7 @@ export const ResultadoView: React.FC<ResultadoViewProps> = ({
       : ''
   );
   const [acrescimoOpcao, setAcrescimoOpcao] = useState<'10' | '20' | '30' | 'personalizado'>('20');
-  const [acrescimoPersonalizadoTexto, setAcrescimoPersonalizadoTexto] = useState('25');
+  const [acrescimoPersonalizadoTexto, setAcrescimoPersonalizadoTexto] = useState('');
 
   const percentualAcrescimo =
     acrescimoOpcao === 'personalizado'

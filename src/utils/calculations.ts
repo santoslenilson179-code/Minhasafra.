@@ -34,7 +34,7 @@ export function calcularTotalProducao(producoes: Producao[]): ResumoProducao {
     return {
       totalGeral: 0,
       porUnidade: {},
-      resumoTexto: '0 kg',
+      resumoTexto: '0',
       unidadePredominante: 'kg',
       quantidadePredominante: 0,
     };
@@ -73,7 +73,7 @@ export function calcularTotalProducao(producoes: Producao[]): ResumoProducao {
   return {
     totalGeral: totalSoma,
     porUnidade,
-    resumoTexto: parts.join(' + ') || '0 kg',
+    resumoTexto: parts.join(' + ') || '0',
     unidadePredominante: topUnit,
     quantidadePredominante: maxQtd,
   };

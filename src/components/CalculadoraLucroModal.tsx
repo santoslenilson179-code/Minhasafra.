@@ -55,8 +55,8 @@ export const CalculadoraLucroModal: React.FC<CalculadoraLucroModalProps> = ({
     custoMedioSafra !== null && custoMedioSafra > 0 ? String(custoMedioSafra) : ''
   );
   const [acrescimoPretendido, setAcrescimoPretendido] = useState<'10' | '20' | '30' | 'custom'>('20');
-  const [acrescimoCustomTexto, setAcrescimoCustomTexto] = useState('25');
-  const [custoAdicionalFrete1, setCustoAdicionalFrete1] = useState('0');
+  const [acrescimoCustomTexto, setAcrescimoCustomTexto] = useState('');
+  const [custoAdicionalFrete1, setCustoAdicionalFrete1] = useState('');
 
   // --- ESTADOS DO MODO 2: ANALISAR PROPOSTA DO COMPRADOR ---
   const [precoOferecido2, setPrecoOferecido2] = useState('');
@@ -68,7 +68,7 @@ export const CalculadoraLucroModal: React.FC<CalculadoraLucroModalProps> = ({
   const [custoUnitario2, setCustoUnitario2] = useState(
     custoMedioSafra !== null && custoMedioSafra > 0 ? String(custoMedioSafra) : ''
   );
-  const [freteTotal2, setFreteTotal2] = useState('0');
+  const [freteTotal2, setFreteTotal2] = useState('');
 
   // --- ESTADOS DO MODO 3: PONTO DE EQUILÍBRIO & META ---
   const [precoPraticado3, setPrecoPraticado3] = useState('');

@@ -76,4 +76,16 @@ assert(textoCompleto.includes('💰 *Valor:* R$ 2,50/kg') || textoCompleto.incl
 assert(textoCompleto.includes('📍 *Local:* Livramento - BA'), 'Exibe local informado');
 assert(textoCompleto.includes('Será colhido em breve'), 'Exibe situação selecionada pelo usuário');
 
+// 5. Estado Inicial Zerado (Sem registros do usuário)
+console.log('\n5. Teste Estado Inicial Zerado:');
+assert(calcularTotalGastos([]) === 0, 'Total gastos deve ser estritamente 0 quando vazio');
+assert(calcularTotalVendas([]) === 0, 'Total vendas deve ser estritamente 0 quando vazio');
+assert(calcularResultado(0, 0) === 0, 'Meu Resultado deve ser estritamente 0 quando vazio');
+const prodZero = calcularTotalProducao([]);
+assert(prodZero.totalGeral === 0, 'Total de produção deve ser 0 quando vazio');
+assert(prodZero.quantidadePredominante === 0, 'Quantidade predominante deve ser 0 quando vazio');
+assert(prodZero.resumoTexto === '0', 'Resumo de produção deve exibir "0" quando vazio');
+assert(calcularCustoMedio(0, 0) === null, 'Custo médio sem gastos ou produção deve ser null');
+
 console.log('\n✅ TODOS OS TESTES PASSARAM COM SUCESSO!');
+

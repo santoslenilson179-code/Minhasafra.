@@ -24,7 +24,7 @@ export const SafrasModal: React.FC<SafrasModalProps> = ({
 }) => {
   const [modoCriacao, setModoCriacao] = useState(false);
   const [nome, setNome] = useState('');
-  const [produtoPrincipal, setProdutoPrincipal] = useState('Manga Palmer');
+  const [produtoPrincipal, setProdutoPrincipal] = useState('');
   const [dataInicio, setDataInicio] = useState(obterDataHojeISO());
   const [safraParaExcluir, setSafraParaExcluir] = useState<Safra | null>(null);
   const [erro, setErro] = useState('');
@@ -45,6 +45,7 @@ export const SafrasModal: React.FC<SafrasModalProps> = ({
     });
 
     setNome('');
+    setProdutoPrincipal('');
     setModoCriacao(false);
     setErro('');
   };

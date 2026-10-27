@@ -15,6 +15,32 @@ function generateId(): string {
 }
 
 /**
+ * Filtro de segurança não-destrutivo:
+ * Garante que dados de exemplo/mock de sessões legadas não entrem no estado real do usuário,
+ * preservando integralmente todos os registros reais cadastrados pelo usuário.
+ */
+function sanitizarListaLegada<T extends { id: string }>(itens: T[]): T[] {
+  if (!Array.isArray(itens)) return [];
+  return itens.filter(item => {
+    if (!item || typeof item !== 'object') return false;
+    const id = String(item.id || '');
+    const isMockId =
+      id.startsWith('mock-') ||
+      id.startsWith('demo-') ||
+      id.startsWith('seed-') ||
+      id.startsWith('sample-') ||
+      id.startsWith('teste-') ||
+      id.startsWith('exemplo-') ||
+      /^gasto-\d+$/.test(id) ||
+      /^venda-\d+$/.test(id) ||
+      /^prod-\d+$/.test(id) ||
+      /^\d+$/.test(id);
+    const hasMockFlag = (item as unknown as { isDemo?: boolean; isMock?: boolean }).isDemo === true || (item as unknown as { isDemo?: boolean; isMock?: boolean }).isMock === true;
+    return !isMockId && !hasMockFlag;
+  });
+}
+
+/**
  * Camada de persistência local abstrata.
  * Facilita a migração para Supabase ou outra API na nuvem no futuro.
  */
@@ -24,11 +50,11 @@ export const StorageService = {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.SAFRAS);
       if (!data) {
-        // Inicializa com a primeira safra padrão, sem nenhum gasto/venda/produção fictício.
+        // Inicializa com a primeira safra padrão zerada, sem nenhum gasto/venda/produção fictício.
         const safraPadrao: Safra = {
           id: 'safra-inicial-1',
-          nome: 'Safra Principal 2026',
-          produtoPrincipal: 'Manga Palmer',
+          nome: 'Safra Principal',
+          produtoPrincipal: 'Geral',
           dataInicio: obterDataHojeISO(),
           ativa: true,
           createdAt: new Date().toISOString(),
@@ -129,8 +155,12 @@ export const StorageService = {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.GASTOS);
       const todos = data ? (JSON.parse(data) as Gasto[]) : [];
-      if (!safraId) return todos;
-      return todos.filter(g => g.safraId === safraId);
+      const sanitizados = sanitizarListaLegada(todos);
+      if (sanitizados.length !== todos.length) {
+        localStorage.setItem(STORAGE_KEYS.GASTOS, JSON.stringify(sanitizados));
+      }
+      if (!safraId) return sanitizados;
+      return sanitizados.filter(g => g.safraId === safraId);
     } catch {
       return [];
     }
@@ -167,8 +197,12 @@ export const StorageService = {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.VENDAS);
       const todas = data ? (JSON.parse(data) as Venda[]) : [];
-      if (!safraId) return todas;
-      return todas.filter(v => v.safraId === safraId);
+      const sanitizadas = sanitizarListaLegada(todas);
+      if (sanitizadas.length !== todas.length) {
+        localStorage.setItem(STORAGE_KEYS.VENDAS, JSON.stringify(sanitizadas));
+      }
+      if (!safraId) return sanitizadas;
+      return sanitizadas.filter(v => v.safraId === safraId);
     } catch {
       return [];
     }
@@ -205,8 +239,12 @@ export const StorageService = {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.PRODUCOES);
       const todas = data ? (JSON.parse(data) as Producao[]) : [];
-      if (!safraId) return todas;
-      return todas.filter(p => p.safraId === safraId);
+      const sanitizadas = sanitizarListaLegada(todas);
+      if (sanitizadas.length !== todas.length) {
+        localStorage.setItem(STORAGE_KEYS.PRODUCOES, JSON.stringify(sanitizadas));
+      }
+      if (!safraId) return sanitizadas;
+      return sanitizadas.filter(p => p.safraId === safraId);
     } catch {
       return [];
     }
